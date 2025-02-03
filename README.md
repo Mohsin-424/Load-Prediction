@@ -1,78 +1,59 @@
 # ERCOT Electricity Load Forecasting with GRU and CNN+KMeans
 
-## Overview
-This project focuses on electricity load forecasting using deep learning models, specifically GRU (Gated Recurrent Unit) and CNN+KMeans clustering. The objective is to improve prediction accuracy using historical ERCOT load data combined with weather data from multiple stations.
+## Project Overview
+This project aims to forecast electricity load for the Electric Reliability Council of Texas (ERCOT) using deep learning models, specifically a **Gated Recurrent Unit (GRU)** model and a **CNN+KMeans clustering** approach. By leveraging historical electricity consumption data combined with weather data from multiple stations, the goal is to enhance the accuracy of load forecasting.
 
 ## Features
-- **Data Preprocessing:**
-  - Merging ERCOT load data with weather data from three weather stations.
-  - Handling missing values using forward and backward filling.
-  - Feature extraction (Hour, Day, Month, Weekday) for time series analysis.
-  - Normalization using Min-Max Scaling.
+### Data Preprocessing
+- **Data Merging:** Combines ERCOT's hourly electricity consumption data with weather data from three weather stations.
+- **Missing Data Handling:** Fills missing values using forward and backward filling methods to maintain time-series integrity.
+- **Feature Engineering:** Extracts time-based features such as Hour, Day, Month, and Weekday to improve the time-series forecasting model.
+- **Normalization:** Normalizes data using **Min-Max Scaling** to improve model performance and convergence speed.
 
-- **Modeling Approaches:**
-  - **GRU Model:**
-    - Uses past 24 hours of data to predict the next time step.
-    - Two-layer GRU with dropout to prevent overfitting.
-    - Adam optimizer and Mean Squared Error (MSE) loss function.
-  - **CNN+KMeans:**
-    - CNN extracts spatial features from the time-series data.
-    - KMeans clustering refines the predictions by segmenting data patterns.
-    
-- **Performance Evaluation:**
-  - Metrics used: MAPE, RMSE, NMAE, NRMSE, R² Score.
-  - Comparison of GRU and CNN+KMeans models.
-  - Visualization of predictions vs actual load data.
-  
-- **Visualizations and Insights:**
-  - Histograms of features to analyze data distribution.
-  - Time series plots for actual vs predicted values.
-  - Performance comparison of models.
-  
+### Modeling Approaches
+#### GRU Model
+- **Input:** Utilizes the past 24 hours of load data to predict the next time step.
+- **Architecture:** A two-layer **GRU** network with **dropout** regularization to prevent overfitting.
+- **Optimizer:** Uses **Adam optimizer** for adaptive learning rates.
+- **Loss Function:** **Mean Squared Error (MSE)** is used for training the model.
+
+#### CNN+KMeans Model
+- **CNN for Feature Extraction:** Convolutional Neural Networks (CNN) extract spatial features from the time-series data, capturing local patterns.
+- **KMeans Clustering:** KMeans clustering refines predictions by identifying patterns and grouping similar data points, improving forecast accuracy.
+
+### Performance Evaluation
+- **Metrics:** Model performance is evaluated using:
+  - **MAPE** (Mean Absolute Percentage Error)
+  - **RMSE** (Root Mean Squared Error)
+  - **NMAE** (Normalized Mean Absolute Error)
+  - **NRMSE** (Normalized Root Mean Squared Error)
+  - **R² Score** (Coefficient of Determination)
+- **Model Comparison:** Evaluates the performance of both the GRU model and the CNN+KMeans model for different seasons (e.g., Summer, Winter).
+- **Visualization:** Compares predicted values against actual electricity load data through various plots.
+
+### Visualizations and Insights
+- **Data Distribution:** Histograms and bar charts to visualize the distribution of features.
+- **Time-Series Comparison:** Plots showing actual vs. predicted load values to evaluate model performance over time.
+- **Model Performance:** Graphs that compare the performance metrics of GRU vs. CNN+KMeans models.
+
 ## Dataset
-- **ERCOT Load Data:** Contains hourly electricity consumption records.
-- **Weather Data:** Temperature, humidity, and other meteorological factors from three stations.
+- **ERCOT Load Data:** Hourly electricity consumption records from ERCOT.
+- **Weather Data:** Meteorological data including temperature, humidity, and other weather factors collected from three weather stations in the ERCOT region.
 
-## Results
-| Model | Season | MAPE | RMSE | NMAE | NRMSE |
-|--------|--------|--------|--------|--------|--------|
-| CNN | Summer | 3.95 | 0.250 | 0.026 | 0.046 |
-| CNN | Winter | 12.55 | 0.261 | 0.028 | 0.047 |
-| CNN+KMeans | Summer | 3.05 | 0.219 | 0.024 | 0.040 |
-| CNN+KMeans | Winter | 7.41 | 0.239 | 0.025 | 0.042 |
+## Results Summary
+### Model Performance (Seasonal Comparison)
 
-## Installation
+| Model          | Season | MAPE  | RMSE   | NMAE   | NRMSE  |
+|----------------|--------|-------|--------|--------|--------|
+| CNN            | Summer | 3.95  | 0.250  | 0.026  | 0.046  |
+| CNN            | Winter | 12.55 | 0.261  | 0.028  | 0.047  |
+| CNN+KMeans     | Summer | 3.05  | 0.219  | 0.024  | 0.040  |
+| CNN+KMeans     | Winter | 7.41  | 0.239  | 0.025  | 0.042  |
+
+## Installation Instructions
+To set up and run the project, follow the steps below:
+
+### 1. Install dependencies
+Install the required Python packages using `pip`:
 ```bash
 pip install numpy pandas scikit-learn tensorflow keras matplotlib seaborn
-```
-
-## Usage
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/ercot-load-forecasting.git
-cd ercot-load-forecasting
-```
-2. Run the preprocessing script:
-```bash
-python preprocess.py
-```
-3. Train the model:
-```bash
-python train_model.py
-```
-4. Visualize results:
-```bash
-python visualize.py
-```
-
-## Future Enhancements
-- Integrate additional meteorological factors.
-- Hyperparameter tuning for improved accuracy.
-- Deploy the model as a web API for real-time predictions.
-
-## Contributors
-- **Muhammad Mohsin** - Lead Developer
-
-## License
-This project is licensed under the MIT License.
-
